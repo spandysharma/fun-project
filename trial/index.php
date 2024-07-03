@@ -17,7 +17,6 @@ $response = mysqli_query($connect, $query);
 
 echo "<strong>$table_name: </strong>";
 ?>
-
 <html>
 
 <head>

@@ -1,102 +1,75 @@
 <!-- Display summary of Vendor Application Submission (vendorInitApp) -->
 
 <?php
-    include "vendorInitApp.php";
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
 
-    $connect = mysqli_connect(
-        'db', # service name
-        'php_docker', # username
-        'password', # password
-        'php_docker' # db table
-    );
-    
-    $table_name = "php_docker_table";
-    
-    $query = "INSERT INTO $table_name VALUES (NULL, '$vendorType', '$title', '$description', '$deadline', '$coverPhoto', '$status', '$dateCreated');";
-    
-    $response = mysqli_query($connect, $query);
-    
-    // echo "<strong>$table_name: </strong>";
-    // while($i = mysqli_fetch_assoc($response)) {
-        if(isset($_POST['submitButton']))
-        {
-            if(!isset($error))
-            {
-        echo"<h1>INPUT RECEIVED</h1><br>";
-        echo "<table border='1'>";
-        echo "<thead>";
-        echo "<th>Parameter</th>";
-        echo "<th>Value</th>";
-        echo "</thead>";
-        echo "<tr>";
-        echo "<td>Product Name</td>";
-        echo "<td>".$vendorType."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Product Price</td>";
-        echo "<td>".$title."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Product description</td>";
-        echo "<td>".$description."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Product Dimensions</td>";
-        echo "<td>" .$deadline."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Units Choice</td>";
-        echo "<td>".$coverPhoto."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Product Delivery Time Start   </td>";
-        echo "<td>".$status."</td>";
-        echo "</tr>";
-        echo "<tr>";
-        echo "<td>Product Delivery Time End     </td>";
-        echo "<td>".$dateCreated."</td>";
-        echo "</tr>";
-        echo "</table>";
-    } }
-    // // if(isset($_POST['submitButton']))
-	// {
-	// 	if(!isset($error))
-	// 	{
-	// 			echo"<h1>INPUT RECEIVED</h1><br>";
-	// 			echo "<table border='1'>";
-	// 			echo "<thead>";
-	// 			echo "<th>Parameter</th>";
-	// 			echo "<th>Value</th>";
-	// 			echo "</thead>";
-	// 			echo "<tr>";
-	// 			echo "<td>Product Name</td>";
-	// 			echo "<td>".$vendorType."</td>";
-	// 			echo "</tr>";
-	// 			echo "<tr>";
-	// 			echo "<td>Product Price</td>";
-	// 			echo "<td>".$title."</td>";
-	// 			echo "</tr>";
-	// 			echo "<tr>";
-	// 			echo "<td>Product description</td>";
-	// 			echo "<td>".$description."</td>";
-	// 			echo "</tr>";
-	// 			echo "<tr>";
-	// 			echo "<td>Product Dimensions</td>";
-	// 			echo "<td>" .$deadline."</td>";
-	// 			echo "</tr>";
-	// 			echo "<tr>";
-	// 			echo "<td>Units Choice</td>";
-	// 			echo "<td>".$coverPhoto."</td>";
-	// 			echo "</tr>";
-	// 			echo "<tr>";
-	// 			echo "<td>Product Delivery Time Start   </td>";
-	// 			echo "<td>".$status."</td>";
-	// 			echo "</tr>";
-    //             echo "<tr>";
-    //             echo "<td>Product Delivery Time End     </td>";
-    //             echo "<td>".$dateCreated."</td>";
-    //             echo "</tr>";
-	// 			echo "</table>";
-	// 	}
-	// }
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
+debug_to_console("display.php starting");
+$connect = mysqli_connect(
+    'db', # service name
+    'php_docker', # username
+    'password', # password
+    'php_docker' # db table
+);
+
+$table_name = "php_docker_table";
+
+$title = $_POST['title'];
+
+$query = "SELECT * FROM $table_name WHERE `title` = '{$title}'";
+
+$response = mysqli_query($connect, $query);
+
+
+debug_to_console("display.php leaving");
+debug_to_console($title);
+
 ?>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title> Foodventeny Vendor Application</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;700&family=Plus+Jakarta+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>Type of Vendor</td>
+                <td>Stall Name</td>
+                <td>Stall Description</td>
+                <td>Deadline</td>
+                <td>Cover Photo</td>
+                <td>Status</td>
+                <td>Application date</td>
+            </tr>
+            <tr>
+                <?php while ($i = mysqli_fetch_assoc($response)) { ?>
+                    <td><?php echo $i['vendorType']; ?></td>
+                    <td><?php echo $i['title']; ?></td>
+                    <td><?php echo $i['description']; ?></td>
+                    <td><?php echo $i['deadline']; ?></td>
+                    <td><?php echo $i['coverPhoto']; ?></td>
+                    <td><?php echo $i['status']; ?></td>
+                    <td><?php echo $i['dateCreated']; ?></td>
+
+            </tr>
+        <?php } ?>
+        </table>
+    </div>
+
+</body>
+<footer>
+</footer>
+
+</html>
