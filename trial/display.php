@@ -1,14 +1,7 @@
 <!-- Display summary of Vendor Application Submission (vendorInitApp) -->
 
 <?php
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
 
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
-debug_to_console("display.php starting");
 $connect = mysqli_connect(
     'db', # service name
     'php_docker', # username
@@ -24,10 +17,6 @@ $query = "SELECT * FROM $table_name WHERE `title` = '{$title}'";
 
 $response = mysqli_query($connect, $query);
 
-
-debug_to_console("display.php leaving");
-debug_to_console($title);
-
 ?>
 
 <html>
@@ -42,16 +31,25 @@ debug_to_console($title);
 </head>
 
 <body>
+<nav class="navigation-bar">
+        <img class="logo" src="./images/foodventeny.png">
+        <div class="navlinks">
+            <a href="./homepage.php">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="./index.php">Organizer?</a>
+        </div>
+    </nav>
     <div>
-        <table>
+        <table class="tableResults">
             <tr>
-                <td>Type of Vendor</td>
-                <td>Stall Name</td>
-                <td>Stall Description</td>
-                <td>Deadline</td>
-                <td>Cover Photo</td>
-                <td>Status</td>
-                <td>Application date</td>
+                <th>Type of Vendor</th>
+                <th>Stall Name</th>
+                <th>Stall Description</th>
+                <th>Deadline</th>
+                <th>Cover Photo</th>
+                <th>Status</th>
+                <th>Application date</th>
             </tr>
             <tr>
                 <?php while ($i = mysqli_fetch_assoc($response)) { ?>

@@ -9,46 +9,53 @@
     );
     
     $table_name = "php_docker_table";
+    $vendorCheck = "SELECT * FROM $table_name WHERE `title`='{$title}'";
     
-    $query = "INSERT INTO $table_name VALUES (NULL, '$vendorType', '$title', '$description', '$deadline', '$coverPhoto', '$status', '$dateCreated');";
+    // if vendor doesn't exist in system, add them
+    if (mysqli_num_rows(mysqli_query($connect, $vendorCheck)) == 0) {
+        $addVendor = "INSERT INTO $table_name VALUES (NULL, '$vendorType', '$title', '$description', '$deadline', '$coverPhoto', '$status', '$dateCreated');";
+        $response = mysqli_query($connect, $addVendor);
+    }
     
-    $response = mysqli_query($connect, $query);
+
     if(isset($_POST['submitButton']))
         {
             if(!isset($error))
             {
-        echo"<h1>INPUT RECEIVED</h1><br>";
+        echo"";
+        echo"<h1>Thank you for your application!</h1>";
+        echo"<h2>The organizer will be in contact with you shortly.</h2><br>";
         echo "<table border='1'>";
         echo "<thead>";
         echo "<th>Parameter</th>";
         echo "<th>Value</th>";
         echo "</thead>";
         echo "<tr>";
-        echo "<td>Product Name</td>";
+        echo "<td>Vendor Type</td>";
         echo "<td>".$vendorType."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Product Price</td>";
+        echo "<td>Stall Name</td>";
         echo "<td>".$title."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Product description</td>";
+        echo "<td>Stall Description</td>";
         echo "<td>".$description."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Product Dimensions</td>";
+        echo "<td>Response Needed By</td>";
         echo "<td>" .$deadline."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Units Choice</td>";
+        echo "<td>Cover Picture</td>";
         echo "<td>".$coverPhoto."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Product Delivery Time Start   </td>";
+        echo "<td>Application Status</td>";
         echo "<td>".$status."</td>";
         echo "</tr>";
         echo "<tr>";
-        echo "<td>Product Delivery Time End     </td>";
+        echo "<td>Application Submitted On</td>";
         echo "<td>".$dateCreated."</td>";
         echo "</tr>";
         echo "</table>";

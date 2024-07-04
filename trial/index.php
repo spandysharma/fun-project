@@ -15,7 +15,6 @@ $query = "SELECT * FROM $table_name";
 
 $response = mysqli_query($connect, $query);
 
-echo "<strong>$table_name: </strong>";
 ?>
 <html>
 
@@ -26,16 +25,6 @@ echo "<strong>$table_name: </strong>";
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila:wght@400;700&family=Plus+Jakarta+Sans:wght@200;300;400;600&display=swap" rel="stylesheet">
-    <!-- <script>
-        function updateStatus(rowIndex) {
-            // Get the selected status from the input field
-            const selectedStatus = document.getElementById('statusType_' + rowIndex).value;
-            
-            // Update the status directly in the table cell
-            const statusCell = document.getElementById('statusCell_' + rowIndex);
-            statusCell.textContent = selectedStatus;
-        }
-    </script> -->
     <script>
     function updateStatus(rowIndex) {
         // Get the selected status from the input field
@@ -62,16 +51,26 @@ echo "<strong>$table_name: </strong>";
 
 </head>
 <body>
+<nav class="navigation-bar">
+        <img class="logo" src="./images/foodventeny.png">
+        <div class="navlinks">
+            <a href="./homepage.php">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="./index.php">Organizer?</a>
+        </div>
+    </nav>
     <div>
-        <table>
+        <table class="tableResults">
             <tr>
-                <td>Type of Vendor</td>
-                <td>Stall Name</td>
-                <td>Stall Description</td>
-                <td>Deadline</td>
-                <td>Cover Photo</td>
-                <td>Status</td>
-                <td>Application date</td>
+                <th>Type of Vendor</th>
+                <th>Stall Name</th>
+                <th>Stall Description</th>
+                <th>Deadline</th>
+                <th>Cover Photo</th>
+                <th>Status</th>
+                <th>Update status</th>
+                <th>Application date</th>
             </tr>
             <tr>
                 <?php while($i = mysqli_fetch_assoc($response)) { ?>
@@ -89,7 +88,7 @@ echo "<strong>$table_name: </strong>";
                         <option value="denied">
                         <option value="in review">
                     </datalist>
-                    <button onclick="updateStatus(<?php echo $i['id']; ?>)">Update Status</button>
+                    <button class="secondaryButton" onclick="updateStatus(<?php echo $i['id']; ?>)">Update Status</button>
                 </td>
                 <td><?php echo $i['dateCreated']; ?></td>
                 
@@ -102,18 +101,3 @@ echo "<strong>$table_name: </strong>";
 <footer>
 </footer>
 </html>
-
-
-
-
-<!-- while($i = mysqli_fetch_assoc($response))
-{
-    echo "<p>".$i['vendorType']."</p>";
-    echo "<p>".$i['title']."</p>";
-    echo "<p>".$i['description']."</p>";
-    echo "<p>".$i['deadline']."</p>";
-    echo "<p>".$i['coverPhoto']."</p>";
-    echo "<p>".$i['status']."</p>";
-    echo "<p>".$i['dateCreated']."</p>";
-    echo "<hr>";
-} -->
