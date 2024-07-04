@@ -71,6 +71,8 @@ $response = mysqli_query($connect, $query);
                 <th>Status</th>
                 <th>Update status</th>
                 <th>Application date</th>
+                <th>Contact Name</th>
+                <th>Contact Email</th>
             </tr>
             <tr>
                 <?php while($i = mysqli_fetch_assoc($response)) { ?>
@@ -91,7 +93,8 @@ $response = mysqli_query($connect, $query);
                     <button class="secondaryButton" onclick="updateStatus(<?php echo $i['id']; ?>)">Update Status</button>
                 </td>
                 <td><?php echo $i['dateCreated']; ?></td>
-                
+                <td><?php echo $i['contactName']; ?></td>
+                <td><?php echo $i['contactEmail']; ?></td>
             </tr>
             <?php } ?>
         </table>

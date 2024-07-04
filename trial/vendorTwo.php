@@ -13,7 +13,7 @@
     
     // if vendor doesn't exist in system, add them
     if (mysqli_num_rows(mysqli_query($connect, $vendorCheck)) == 0) {
-        $addVendor = "INSERT INTO $table_name VALUES (NULL, '$vendorType', '$title', '$description', '$deadline', '$coverPhoto', '$status', '$dateCreated');";
+        $addVendor = "INSERT INTO $table_name VALUES (NULL, '$vendorType', '$title', '$description', '$deadline', '$coverPhoto', '$status', '$dateCreated','$contactName','$contactEmail');";
         $response = mysqli_query($connect, $addVendor);
     }
     
@@ -57,6 +57,14 @@
         echo "<tr>";
         echo "<td>Application Submitted On</td>";
         echo "<td>".$dateCreated."</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<td>Vendor Contact Name</td>";
+        echo "<td>".$contactName."</td>";
+        echo "</tr>";
+        echo "<tr>";
+        echo "<td>Vendor Contact Email</td>";
+        echo "<td>".$contactEmail."</td>";
         echo "</tr>";
         echo "</table>";
     } }

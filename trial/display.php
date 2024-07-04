@@ -50,6 +50,8 @@ $response = mysqli_query($connect, $query);
                 <th>Cover Photo</th>
                 <th>Status</th>
                 <th>Application date</th>
+                <th>Contact Name</th>
+                <th>Contact Email</th>
             </tr>
             <tr>
                 <?php while ($i = mysqli_fetch_assoc($response)) { ?>
@@ -60,7 +62,8 @@ $response = mysqli_query($connect, $query);
                     <td><?php echo $i['coverPhoto']; ?></td>
                     <td><?php echo $i['status']; ?></td>
                     <td><?php echo $i['dateCreated']; ?></td>
-
+                    <td><?php echo $i['contactName']; ?></td>
+                    <td><?php echo $i['contactEmail']; ?></td>
             </tr>
         <?php } ?>
         </table>

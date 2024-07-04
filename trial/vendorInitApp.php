@@ -8,7 +8,9 @@ if (isset($_POST['submitButton'])) {
         (!isset($_POST['deadline'])) ||
         (!isset($_POST['coverPhoto'])) ||
         (!isset($_POST['status'])) ||
-        (!isset($_POST['dateCreated']))
+        (!isset($_POST['dateCreated'])) ||
+        (!isset($_POST['contactName'])) ||
+        (!isset($_POST['contactEmail']))
     ) {
         $error = "*" . "Please fill all the required fields";
     } else {
@@ -19,6 +21,8 @@ if (isset($_POST['submitButton'])) {
         $coverPhoto = $_POST['coverPhoto'];
         $status = 'in review';
         $dateCreated = date('Y/m/d');
+        $contactName = $_POST['contactName'];
+        $contactEmail = $_POST['contactEmail'];
     }
 }
 ?>
@@ -102,6 +106,16 @@ if (isset($_POST['submitButton'])) {
                 <li>
                     <label for="dateCreated">Application date</label>
                     <input type="date" id="dateCreated" name="dateCreated" placeholder="">
+                    <span style="color:red;">*</span>
+                </li>
+                <li>
+                    <label for="contactName">Vendor Contact Name:</label>
+                    <input type="text" id="contactName" name="contactName" placeholder="" required>
+                    <span style="color:red;">*</span>
+                </li>
+                <li>
+                    <label for="contactEmail">Vendor Contact Email:</label>
+                    <input type="text" id="contactEmail" name="contactEmail" placeholder="" required>
                     <span style="color:red;">*</span>
                 </li>
             </ol>
